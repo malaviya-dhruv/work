@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photo Gallery</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"> <!-- AOS Animation Library -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #3498db;
+      /* Blue background */
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      text-align: center;
+      color: white;
+      padding: 30px 0;
+      font-size: 2.5em;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      /* Two items per row */
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .photo-item {
+      position: relative;
+      overflow: hidden;
+      border: 15px solid white;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Modal and Backdrop */
+    .modal {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      /* Black background with transparency */
+      backdrop-filter: blur(5px);
+      /* Apply blur effect */
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      position: relative;
+      width: 90%;
+      /* Adjust to fit most screen sizes */
+      height: auto;
+      max-width: 1200px;
+      /* Max width for very large screens */
+      max-height: 90%;
+      /* Limit height */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content img {
+      max-width: 100%;
+      max-height: 100vh;
+      object-fit: contain;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      padding: 10px 20px;
+      border-radius: 500px;
+      background-color: rgba(0, 0, 0, 0.5);
+      transition: background-color 0.3s;
+    }
+
+    .close-btn:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    /* Scroll animation for left and right columns */
+    .left-column,
+    .right-column {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Scroll animations */
+    .left-column[data-aos="fade-up"] {
+      transform: translateY(50px);
+      transition: transform 0.5s ease-out;
+    }
+
+    .right-column[data-aos="fade-down"] {
+      transform: translateY(-50px);
+      transition: transform 0.5s ease-out;
+    }
+
+    .left-column[data-aos="fade-up"].aos-animate {
+      transform: translateY(0);
+    }
+
+    .right-column[data-aos="fade-down"].aos-animate {
+      transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+
+      /* Stack the columns on smaller screens */
+      .container {
+        grid-template-columns: 1fr;
+        /* One item per row */
+        gap: 10px;
+      }
+
+      .header {
+        font-size: 2em;
+        /* Smaller header for mobile */
+        padding: 20px 0;
+      }
+
+      .photo-item {
+        border-width: 10px;
+        /* Smaller border on mobile */
+      }
+
+      .modal-content {
+        width: 95%;
+        /* Modal takes more space on mobile */
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+
+      /* Adjust modal content on very small screens */
+      .modal-content img {
+        max-height: 80vh;
+        /* Reduce the image height */
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+  
+
+  <div class="container">
+    <!-- Left-side column -->
+    <div class="left-column" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0005.jpg" alt="Image 1" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0006.jpg" alt="Image 2" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0007.jpg" alt="Image 3" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0008.jpg" alt="Image 4" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0013.jpg" alt="Image 5" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0020.jpg" alt="Image 6" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0010.jpg" alt="Image 7" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0011.jpg" alt="Image 8" onclick="openModal(this)">
+      </div>
+    </div>
+
+    <!-- Right-side column -->
+    <div class="right-column" data-aos="fade-down" data-aos-anchor-placement="top-bottom">
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0015.jpg" alt="Image 11" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0016.jpg" alt="Image 12" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0017.jpg" alt="Image 13" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0018.jpg" alt="Image 14" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0019.jpg" alt="Image 15" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0009.jpg" alt="Image 16" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0012.jpg" alt="Image 17" onclick="openModal(this)">
+      </div>
+      <div class="photo-item">
+        <img src="Images/IMG-20241212-WA0014.jpg" alt="Image 18" onclick="openModal(this)">
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <div class="close-btn" onclick="closeModal()">×</div>
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Image">
+    </div>
+  </div>
+
+  <!-- AOS Script -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script> <!-- AOS Script -->
+  <script>
+    // Initialize AOS for animations
+    AOS.init();
+
+    // Function to open the modal
+    function openModal(image) {
+      var modal = document.getElementById("myModal");
+      var modalImage = document.getElementById("modalImage");
+      modal.style.display = "flex"; // Show the modal
+      modalImage.src = image.src; // Set the image in the modal to the clicked image
+    }
+
+    // Function to close the modal
+    function closeModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none"; // Hide the modal
+    }
+
+    // Close modal if clicked outside the image
+    window.onclick = function (event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        closeModal();
+      }
+    }
+  </script>
+
+</body>
+
+</html>
