@@ -8,11 +8,13 @@
   <title>Photo Gallery</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"> <!-- AOS Animation Library -->
   <style>
+    *{
+      -webkit-tap-highlight-color: transparent;
+    }
     body {
       margin: 0;
       padding: 0;
       background-color: #3498db;
-      /* Blue background */
       font-family: Arial, sans-serif;
     }
 
@@ -89,8 +91,9 @@
       right: 10px;
       font-size: 40px;
       color: white;
+      border: 2px solid white;
       cursor: pointer;
-      padding: 10px 20px;
+      padding: 5px 17px;
       border-radius: 500px;
       background-color: rgba(0, 0, 0, 0.5);
       transition: background-color 0.3s;
@@ -106,25 +109,6 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-    }
-
-    /* Scroll animations */
-    .left-column[data-aos="fade-up"] {
-      transform: translateY(50px);
-      transition: transform 0.5s ease-out;
-    }
-
-    .right-column[data-aos="fade-down"] {
-      transform: translateY(-50px);
-      transition: transform 0.5s ease-out;
-    }
-
-    .left-column[data-aos="fade-up"].aos-animate {
-      transform: translateY(0);
-    }
-
-    .right-column[data-aos="fade-down"].aos-animate {
-      transform: translateY(0);
     }
 
     /* Responsive Design */
